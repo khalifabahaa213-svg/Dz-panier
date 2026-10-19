@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-  // التقاط الأخطاء غير المعالجة لمنع إغلاق التطبيق المفاجئ
   FlutterError.onError = (FlutterErrorDetails details) {
     FlutterError.dumpErrorToConsole(details);
   };
