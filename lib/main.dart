@@ -2,9 +2,28 @@ import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   FlutterError.onError = (FlutterErrorDetails details) {
     FlutterError.dumpErrorToConsole(details);
+  };
+
+  ErrorWidget.builder = (FlutterErrorDetails details) {
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            style: const TextStyle(fontSize: 16, color: Colors.red),
+            child: SingleChildScrollView(
+              child: Text(
+                'حدث خطأ في تحميل هذه الشاشة:\n\n${details.exceptionAsString()}',
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   };
 
   runApp(const DzPanierApp());
@@ -22,10 +41,24 @@ class DzPanierApp extends StatelessWidget {
         primarySwatch: Colors.green,
         fontFamily: 'Roboto',
       ),
-      home: const MainNavigationScreen(),
+      // حماية الشاشة الرئيسية ببناء آمن يمنع الانهيار
+      home: Builder(
+        builder: (context) {
+          try {
+            return const MainNavigationScreen();
+          } catch (e) {
+            return Scaffold(
+              body: Center(
+                child: Text('خطأ أثناء فتح الشاشة الرئيسية: $e'),
+              ),
+            );
+          }
+        },
+      ),
     );
   }
 }
+
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
