@@ -55,7 +55,9 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           });
         },
         items: const [
-          BottomNavigationBarItem(
+                  BottomNavigationBarItem(
+          icon: Icon(Icons.home), // أضف الأيقونة المناسبة هنا (مثلاً Icons.home أو غيرها)
+          label: 'الرئيسية',     // أو العنوان الخاص بك
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_bag),
