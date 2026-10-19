@@ -56,8 +56,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         },
         items: const [
           BottomNavigationBarItem(
-            showSelectedLabels: true,
-            showUnselectedLabels: true,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_bag),
