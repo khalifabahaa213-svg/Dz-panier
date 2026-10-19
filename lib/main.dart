@@ -9,18 +9,22 @@ void main() async {
 
   ErrorWidget.builder = (FlutterErrorDetails details) {
     return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: Padding(
-  padding: const EdgeInsets.all(20.0),
-  child: SingleChildScrollView(
-    child: Text(
-      'حدث خطأ في تحميل هذه الشاشة:\n\n${details.exception}',
-      textAlign: TextAlign.center,
-      style: const TextStyle(fontSize: 16, color: Colors.red), // <-- أضفناه هنا في المكان الصحيح داخل Text
+  body: SafeArea(
+    child: Center(
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: SingleChildScrollView(
+          child: Text(
+            'حدث خطأ في تحميل هذه الشاشة:\n\n${details.exception}',
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16, color: Colors.red),
+          ),
+        ),
+      ),
     ),
   ),
- ),
+);
+
 };
 
   runApp(const DzPanierApp());
