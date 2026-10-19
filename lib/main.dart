@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
+  // التقاط الأخطاء غير المعالجة لمنع إغلاق التطبيق المفاجئ
+  FlutterError.onError = (FlutterErrorDetails details) {
+    FlutterError.dumpErrorToConsole(details);
+  };
+
   runApp(const DzPanierApp());
 }
 
@@ -15,13 +21,9 @@ class DzPanierApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.green,
-        primaryColor: const Color(0xFF2E7D32),
-        scaffoldBackgroundColor: const Color(0xFFF8F9FA),
         fontFamily: 'Roboto',
       ),
-      home: Scaffold(
-  body: Center(
-    child: Text('مرحباً بك في DzPanier'),
+      home: const MainNavigationScreen(),
     );
   }
 }
