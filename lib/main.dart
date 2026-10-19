@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
- void main() async {
-  // هذا السطر يمنع توقف التطبيق عند الإقلاع
-  WidgetsFlutterBinding.ensureInitialized();
+ import 'package:flutter/material.dart';
 
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
