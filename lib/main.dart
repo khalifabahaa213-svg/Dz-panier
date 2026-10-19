@@ -55,7 +55,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           });
         },
         items: const [
-          BottomNavigationBarThemeData(
+          BottomNavigationBarItem(
             showSelectedLabels: true,
             showUnselectedLabels: true,
           ),
