@@ -19,7 +19,9 @@ class DzPanierApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFF8F9FA),
         fontFamily: 'Roboto',
       ),
-      home: const MainNavigationScreen(),
+      home: Scaffold(
+  body: Center(
+    child: Text('مرحباً بك في DzPanier'),
     );
   }
 }
