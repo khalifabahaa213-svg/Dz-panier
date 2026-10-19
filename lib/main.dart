@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const DzPanierApp());
+ void main() async {
+  // هذا السطر يمنع توقف التطبيق عند الإقلاع
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(const MyApp());
 }
 
 class DzPanierApp extends StatelessWidget {
