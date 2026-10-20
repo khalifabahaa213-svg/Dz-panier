@@ -1,32 +1,7 @@
 import 'package:flutter/material.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
-  FlutterError.onError = (FlutterErrorDetails details) {
-    FlutterError.dumpErrorToConsole(details);
-  };
-
-  ErrorWidget.builder = (FlutterErrorDetails details) {
-    return Scaffold(
-  body: SafeArea(
-    child: Center(
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: SingleChildScrollView(
-          child: Text(
-            'حدث خطأ في تحميل هذه الشاشة:\n\n${details.exception}',
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 16, color: Colors.red),
-          ),
-        ),
-      ),
-    ),
-  ),
-);
-
-};
-
   runApp(const DzPanierApp());
 }
 
@@ -40,26 +15,13 @@ class DzPanierApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.green,
+        primaryColor: const Color(0xFF2E7D32),
         fontFamily: 'Roboto',
       ),
-      // حماية الشاشة الرئيسية ببناء آمن يمنع الانهيار
-      home: Builder(
-        builder: (context) {
-          try {
-            return const MainNavigationScreen();
-          } catch (e) {
-            return Scaffold(
-              body: Center(
-                child: Text('خطأ أثناء فتح الشاشة الرئيسية: $e'),
-              ),
-            );
-          }
-        },
-      ),
+      home: const MainNavigationScreen(),
     );
   }
 }
-
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -93,13 +55,9 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           });
         },
         items: const [
-                  BottomNavigationBarItem(
-          icon: Icon(Icons.home), // أضف الأيقونة المناسبة هنا (مثلاً Icons.home أو غيرها)
-          label: 'الرئيسية',     // أو العنوان الخاص بك
-          ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_bag),
-            label: 'السلات',
+            icon: Icon(Icons.home),
+            label: 'الرئيسية',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.map),
@@ -120,7 +78,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 }
 
 // -----------------------------------------------------------------------------
-// الشاشة الرئيسية - استعراض سلات الفائض (Surplus Baskets)
+// الشاشة الرئيسية - استعراض السلات
 // -----------------------------------------------------------------------------
 class DzPanierHomeScreen extends StatelessWidget {
   const DzPanierHomeScreen({super.key});
@@ -132,18 +90,18 @@ class DzPanierHomeScreen extends StatelessWidget {
         backgroundColor: const Color(0xFF2E7D32),
         elevation: 0,
         title: Row(
-          children: [
-            const Icon(Icons.eco, color: Colors.white),
-            const SizedBox(width: 8),
-            const Text(
-              'DzPanier | جزباني',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          children: const [
+            Icon(Icons.eco, color: Colors.white),
+            SizedBox(width: 8),
+            Text(
+              'DzPanier - جزباني',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
             ),
           ],
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.notifications_none),
+            icon: const Icon(Icons.notifications_none, color: Colors.white),
             onPressed: () {},
           ),
         ],
@@ -152,7 +110,7 @@ class DzPanierHomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // الهيدر والرسالة البيئية
+            // الهيدر والرسالة الترحيبية
             Container(
               padding: const EdgeInsets.all(16),
               decoration: const BoxDecoration(
@@ -170,7 +128,7 @@ class DzPanierHomeScreen extends StatelessWidget {
                       Icon(Icons.location_on, color: Colors.white70, size: 18),
                       SizedBox(width: 4),
                       Text(
-                        'الموقع: مستغانم - سلاموندر / صلاماندر',
+                        'الموقع: مستغانم - سلامندر',
                         style: TextStyle(color: Colors.white70, fontSize: 14),
                       ),
                     ],
@@ -199,7 +157,7 @@ class DzPanierHomeScreen extends StatelessWidget {
                   children: [
                     _buildCategoryChip('الكل 🧺', true),
                     _buildCategoryChip('مخابز وحلويات 🥐', false),
-                    _buildCategoryChip('مطاعم وجبات 🍕', false),
+                    _buildCategoryChip('مطاعم وجبات 🍔', false),
                     _buildCategoryChip('سوبرماركت ومواد غذائية 🛒', false),
                     _buildCategoryChip('فواكه وخضر 🍎', false),
                   ],
@@ -209,9 +167,9 @@ class DzPanierHomeScreen extends StatelessWidget {
             const SizedBox(height: 16),
 
             // عنوان القائمة
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: const Text(
                 'سلات المفاجآت المتاحة بالقرب منك',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
@@ -232,29 +190,29 @@ class DzPanierHomeScreen extends StatelessWidget {
                   discountPrice: '500 DA',
                   itemsLeft: 3,
                   rating: '4.9',
-                  distance: '1.2 كلم',
+                  distance: '1.2 كم',
                   imageIcon: Icons.bakery_dining,
                 ),
                 BasketCard(
-                  storeName: 'بيتزا بيت الشام',
+                  storeName: 'بيتزا بيتزيريا الجودة',
                   basketType: 'سلة وجبات سريعة ومقبلات 🍕',
-                  pickupTime: 'اليوم: 21:30 - 23:00',
+                  pickupTime: 'اليوم: 21:00 - 23:00',
                   originalPrice: '1800 DA',
                   discountPrice: '600 DA',
                   itemsLeft: 1,
                   rating: '4.8',
-                  distance: '0.8 كلم',
+                  distance: '0.8 كم',
                   imageIcon: Icons.local_pizza,
                 ),
                 BasketCard(
                   storeName: 'سوبرماركت الأمل',
-                  basketType: 'سلة ألبان وأجبان ومشروبات 🧀',
+                  basketType: 'سلة ألبان وأجبان ومشروبات 🥛',
                   pickupTime: 'غداً: 10:00 - 12:00',
                   originalPrice: '2500 DA',
                   discountPrice: '800 DA',
                   itemsLeft: 5,
                   rating: '4.7',
-                  distance: '2.5 كلم',
+                  distance: '2.5 كم',
                   imageIcon: Icons.shopping_basket,
                 ),
               ],
@@ -322,6 +280,7 @@ class BasketCard extends StatelessWidget {
         onTap: () {
           _showBasketDetails(context);
         },
+        borderRadius: BorderRadius.circular(16),
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Column(
@@ -349,10 +308,7 @@ class BasketCard extends StatelessWidget {
                           children: [
                             Text(
                               storeName,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
+                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                             ),
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
@@ -361,7 +317,7 @@ class BasketCard extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Text(
-                                'متبقي $itemsLeft فقط',
+                                'متبقي $itemsLeft سلات',
                                 style: TextStyle(
                                   color: Colors.orange.shade900,
                                   fontSize: 11,
@@ -459,7 +415,7 @@ class BasketCard extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               const Text(
-                'محتويات السلة: سلة مفاجآت تحتوي على منتجات طازجة وفائضة من اليوم جودة ممتازة بخصم يزيد عن 60%.',
+                'المحتويات أكياس سلة مفاجآت تحتوي على منتجات طازجة وصالحة من اليوم جودتها ممتازة يخصم بخصم أكثر من 60%.',
                 style: TextStyle(color: Colors.grey),
               ),
               const SizedBox(height: 20),
@@ -491,7 +447,7 @@ class BasketCard extends StatelessWidget {
                         ),
                       );
                     },
-                    child: const Text('حجز السلة الآن 🛍️', style: TextStyle(fontSize: 16)),
+                    child: const Text('حجز السلة الآن', style: TextStyle(fontSize: 16, color: Colors.white)),
                   ),
                 ],
               ),
@@ -504,7 +460,7 @@ class BasketCard extends StatelessWidget {
 }
 
 // -----------------------------------------------------------------------------
-// الشاشات الثانوية (الخريطة، الطلبات، الملف الشخصي)
+// الشاشات الثانوية (خريطة، طلباتي، الحساب الشخصي)
 // -----------------------------------------------------------------------------
 class ExploreMapScreen extends StatelessWidget {
   const ExploreMapScreen({super.key});
@@ -516,10 +472,10 @@ class ExploreMapScreen extends StatelessWidget {
         title: const Text('خريطة المحلات القريبة'),
         backgroundColor: const Color(0xFF2E7D32),
       ),
-      body: const Center(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: const [
             Icon(Icons.map_outlined, size: 80, color: Color(0xFF2E7D32)),
             SizedBox(height: 16),
             Text('استعراض المحلات الشريكة على الخريطة التفاعلية'),
@@ -540,8 +496,15 @@ class OrdersScreen extends StatelessWidget {
         title: const Text('حجوزاتي وسلاتي'),
         backgroundColor: const Color(0xFF2E7D32),
       ),
-      body: const Center(
-        child: Text('لا توجد حجوزات سابقة حتى الآن.'),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Icon(Icons.receipt_long, size: 80, color: Color(0xFF2E7D32)),
+            SizedBox(height: 16),
+            Text('لا توجد حجوزات سابقة حتى الآن'),
+          ],
+        ),
       ),
     );
   }
@@ -560,19 +523,22 @@ class ProfileScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          children: const [
+          children: [
             CircleAvatar(
               radius: 40,
-              backgroundColor: Color(0xFF2E7D32),
-              child: Icon(Icons.person, size: 40, color: Colors.white),
+              backgroundColor: const Color(0xFF2E7D32),
+              child: const Icon(Icons.person, size: 40, color: Colors.white),
             ),
-            SizedBox(height: 12),
-            Text('المستخدم الجزائري 🇩🇿', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            SizedBox(height: 20),
+            const SizedBox(height: 12),
+            const Text(
+              'المستخدم الجزائري 🇩🇿',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
             ListTile(
-              leading: Icon(Icons.eco, color: Colors.green),
-              title: Text('تأثيرك البيئي'),
-              subtitle: Text('تم إنقاذ 0 كجم من الطعام هدر حتى الآن'),
+              leading: const Icon(Icons.eco, color: Colors.green),
+              title: const Text('تأثيرك البيئي'),
+              subtitle: const Text('تم إنقاذ 0 كجم من الطعام هدر حتى الآن'),
             ),
           ],
         ),
